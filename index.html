@@ -161,7 +161,7 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 <div class="leader-summary"><div class="leader-summary-grid"><div class="box"><small>Selected Users</small><strong id="leaderSelectedCount">0</strong></div><div class="box"><small>Total Balance</small><strong id="leaderTotalBalance">₹ 0</strong></div><div class="box"><small>10% Collection</small><strong id="leaderTenTotal">₹ 0</strong></div><div class="box"><small>1% Commission</small><strong id="leaderCommissionDetail">₹ 0</strong></div></div></div>  
 <div id="leaderList"></div>  
 </div>  <div id="leaderUserPickerPopup" class="popup-overlay" onclick="closeLeaderUserPicker()"><div class="popup-content" style="max-height:85vh;overflow:auto" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color);margin-top:0">Select Users</h3><div style="display:flex;gap:8px;margin-bottom:10px"><button class="gold" onclick="togglePicker(true)">☑ All</button><button style="background:#555;color:#fff" onclick="togglePicker(false)">☐ Clear</button></div><div id="leaderUserPickerList"></div><button class="gold" style="width:100%;padding:12px;margin-top:12px" onclick="addPickedUsersToLeader()">Add Selected Users</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeLeaderUserPicker()">Cancel</button></div></div>  
-<div id="leaderCreatePopup" class="popup-overlay" onclick="closeLeaderCreate()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="leaderFormTitle" style="color:var(--theme-color);margin-top:0">Create Leader</h3><input type="text" id="leaderNameInput" placeholder="Leader Name"><button class="gold" style="width:100%;padding:12px;margin-top:8px" onclick="saveLeader()">Save Leader</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeLeaderCreate()">Cancel</button></div></div>  <div id="userFormPopup" class="popup-overlay" onclick="closeUserForm()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="userFormTitle" style="color:var(--theme-color);margin-top:0">Add User</h3><input type="text" id="uName" placeholder="User Name"><input type="text" id="uMobile" placeholder="Mobile"><label style="display:block;text-align:left;color:#aaa;font-size:13px;margin-top:5px">Leader</label><select id="uLeader"></select><button class="gold" style="width:100%;padding:12px;margin-top:10px" onclick="saveUserForm()">Save User</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeUserForm()">Cancel</button></div></div>  <div id="settingsPopup" class="popup-overlay" onclick="closeSettingsPopup()"><div class="popup-content" onclick="event.stopPropagation()">
+<div id="leaderCreatePopup" class="popup-overlay" onclick="closeLeaderCreate()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="leaderFormTitle" style="color:var(--theme-color);margin-top:0">Create Leader</h3><input type="text" id="leaderNameInput" placeholder="Leader Name"><button class="gold" style="width:100%;padding:12px;margin-top:8px" onclick="saveLeader()">Save Leader</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeLeaderCreate()">Cancel</button></div></div>  <div id="userFormPopup" class="popup-overlay" onclick="closeUserForm()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="userFormTitle" style="color:var(--theme-color);margin-top:0">Add User</h3><input type="text" id="uName" placeholder="User Name"><input type="text" id="uMobile" placeholder="Mobile"><input type="text" id="uPassword" placeholder="User Password" autocomplete="off"><label style="display:block;text-align:left;color:#aaa;font-size:13px;margin-top:5px">Leader</label><select id="uLeader"></select><button class="gold" style="width:100%;padding:12px;margin-top:10px" onclick="saveUserForm()">Save User</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeUserForm()">Cancel</button></div></div>  <div id="settingsPopup" class="popup-overlay" onclick="closeSettingsPopup()"><div class="popup-content" onclick="event.stopPropagation()">
 <h3 style="color:var(--theme-color);margin-top:0">⚙️ Settings</h3>
 <div id="settingsHome" class="settings-sub active">
 <div style="color:#aaa;font-size:12px;margin-bottom:10px">ஒரு option-ஐ தேர்வு செய்தால் அதற்கான தனி Settings screen திறக்கும்.</div>
@@ -173,6 +173,7 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 <button onclick="openSettingPage('cloud')"><b>Google Sheet</b><small>Cloud sync</small></button>
 <button onclick="openSettingPage('commission')"><b>Leader Commission</b><small>1% commission & history</small></button>
 <button onclick="openSettingPage('leaderPassword')"><b>🔐 Leader Password</b><small>Leader name, password & edit</small></button>
+<button onclick="openSettingPage('userPassword')"><b>🔑 User Password</b><small>Search, user name, password & edit</small></button>
 <button onclick="openSettingPage('danger')"><b>Data</b><small>All Delete & backup</small></button>
 </div></div>
 <div id="settingsBanner" class="settings-sub">
@@ -218,6 +219,13 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 <div class="settings-card"><h4>🔐 Leader Password</h4>
 <div id="leaderPasswordSettingsList"></div>
 </div></div>
+<div id="settingsUserPassword" class="settings-sub">
+<button class="settings-back" onclick="openSettingPage('home')">← Settings</button>
+<div class="settings-card"><h4>🔑 User Password</h4>
+<div style="font-size:12px;color:#aaa;margin-bottom:10px">User password-ஐ தேடி பார்க்கவும் மற்றும் Edit செய்யவும்.</div>
+<input type="text" id="userPasswordSearch" placeholder="🔎 User பெயரை தேடவும்..." oninput="renderUserPasswordSettings()" style="margin-bottom:10px">
+<div id="userPasswordSettingsList"></div>
+</div></div>
 <div id="settingsDanger" class="settings-sub">
 <button class="settings-back" onclick="openSettingPage('home')">← Settings</button><div class="settings-card"><h4>⚠️ Data</h4><div style="font-size:12px;color:#aaa;margin-bottom:10px">All Delete செய்வதற்கு முன் automatic backup download செய்யப்படும்.</div><button style="background:#e53935;color:#fff;width:100%;padding:12px;font-weight:bold;border:0;border-radius:10px" onclick="allDeleteWithExport()">⚠️ All Delete</button></div></div>
 <div style="display:flex;gap:8px;margin-top:12px"><button style="background:#555;color:#fff;flex:1;padding:11px;border:0;border-radius:9px" onclick="closeSettingsPopup()">Close</button></div>
@@ -228,11 +236,18 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 <button class="gold" style="width:100%;padding:12px;margin-top:8px" onclick="saveLeaderPasswordEdit()">Save Password</button>
 <button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeLeaderPasswordEdit()">Cancel</button>
 </div></div>
+<div id="userPasswordEditPopup" class="popup-overlay" onclick="closeUserPasswordEdit()"><div class="popup-content" onclick="event.stopPropagation()">
+<h3 style="color:var(--theme-color);margin-top:0">🔑 Edit User Password</h3>
+<div id="userPasswordEditUserName" style="font-weight:900;color:var(--theme-color);margin-bottom:10px"></div>
+<input type="text" id="userPasswordEditInput" placeholder="Password" autocomplete="off">
+<button class="gold" style="width:100%;padding:12px;margin-top:8px" onclick="saveUserPasswordEdit()">Save Password</button>
+<button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeUserPasswordEdit()">Cancel</button>
+</div></div>
 <div id="entryPopup" class="popup-overlay"><div class="popup-content"><h3 style="color:var(--theme-color)">New Entry</h3><input type="date" id="tDate"><input type="text" id="tDesc" placeholder="Description"><input type="number" id="tCredit" placeholder="Credit"><input type="number" id="tDebit" placeholder="Debit"><div style="display:flex;gap:10px;margin-top:10px"><button class="gold" onclick="saveTransaction()" style="flex:1">Save</button><button style="background:#555;color:#fff;flex:1" onclick="closeEntryForm()">Close</button></div></div></div>  
 <div id="actionPopup" class="popup-overlay" onclick="closeActionPopup()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="popupTitle" style="color:var(--theme-color)">Manage User</h3><button class="gold" id="editBtn" style="width:100%;padding:12px">✏️ Edit User</button><button style="background:#e53935;color:#fff;width:100%;margin-top:10px;padding:12px" id="deleteBtn">🗑️ Delete User</button><button style="background:#555;color:#fff;width:100%;margin-top:10px;padding:12px" onclick="closeActionPopup()">Cancel</button></div></div>  
 <div id="txActionPopup" class="popup-overlay" onclick="closeTxActionPopup()"><div class="popup-content" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color)">Transaction Management</h3><button class="gold" id="txEditBtn" style="width:100%">✏️ Edit Entry</button><button style="background:#e53935;color:#fff;width:100%;margin-top:10px" id="txDeleteBtn">🗑️ Delete Entry</button><button style="background:#555;color:#fff;width:100%;margin-top:10px" onclick="closeTxActionPopup()">Cancel</button></div></div>  
 </div>  <script>  
-const CLOUD_URL="https://script.google.com/macros/s/AKfycbyhndz0IkFxfket9b_MXbwPoxhXe6i7-jV2hzoomk14zbFJxY7go298EIe0hmRf84OV/exec";  
+const CLOUD_URL="https://script.google.com/macros/s/AKfycbx8BkMWLe65CNNm2_Aezqg1OEgdC0SS3kz3L_g71rum__YHvF8GZS9HIYtizRRqldgZGw/exec";  
 function safeJSON(key,fallback){try{const raw=localStorage.getItem(key);if(!raw)return fallback;const v=JSON.parse(raw);return v??fallback}catch(e){console.warn("Invalid local data:",key,e);return fallback}}
 let users=safeJSON("financeUsersData",[]);
 if(!Array.isArray(users))users=[];
@@ -289,6 +304,27 @@ function renderLeaderPasswordSettings(){
 function openLeaderPasswordEdit(id){const l=leaders.find(x=>x.id===id);if(!l)return;editingLeaderPasswordId=id;document.getElementById("leaderPasswordEditLeaderName").textContent="👑 "+l.name;document.getElementById("leaderPasswordEditInput").value=l.password||"";document.getElementById("leaderPasswordEditPopup").style.display="flex";}
 function closeLeaderPasswordEdit(){document.getElementById("leaderPasswordEditPopup").style.display="none";editingLeaderPasswordId=null;}
 async function saveLeaderPasswordEdit(){const l=leaders.find(x=>x.id===editingLeaderPasswordId);if(!l)return;l.password=document.getElementById("leaderPasswordEditInput").value;saveLeaders();ensureLeaderMembership();renderLeaderPasswordSettings();closeLeaderPasswordEdit();await saveToCloudOnly();}
+
+function renderUserPasswordSettings(){
+ ensureLeaderMembership();
+ const box=document.getElementById("userPasswordSettingsList"); if(!box)return;
+ const q=String(document.getElementById("userPasswordSearch")?.value||"").trim().toLowerCase();
+ box.innerHTML="";
+ const list=users.filter(u=>!q||String(u.name||"").toLowerCase().includes(q)||String(u.mobile||"").toLowerCase().includes(q));
+ if(!list.length){box.innerHTML='<div style="color:#aaa;padding:12px 0;text-align:center">User கிடைக்கவில்லை.</div>';return;}
+ list.forEach(u=>{
+   const row=document.createElement("div");
+   row.style.cssText="display:grid;grid-template-columns:minmax(110px,1.1fr) minmax(90px,1fr) auto;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid #444";
+   const name=document.createElement("div");name.style.fontWeight="900";name.textContent=u.name||"";
+   const pass=document.createElement("div");pass.style.cssText="font-weight:700;word-break:break-all;color:#ffd700";pass.textContent=u.password||"";
+   const btn=document.createElement("button");btn.className="gold";btn.style.cssText="border:0;border-radius:7px;padding:8px 10px;font-weight:bold";btn.textContent="✏️ Edit";btn.onclick=()=>openUserPasswordEdit(u.id);
+   row.append(name,pass,btn);box.appendChild(row);
+ });
+}
+let editingUserPasswordId=null;
+function openUserPasswordEdit(id){const u=users.find(x=>x.id===id);if(!u)return;editingUserPasswordId=id;document.getElementById("userPasswordEditUserName").textContent="👤 "+(u.name||"");document.getElementById("userPasswordEditInput").value=u.password||"";document.getElementById("userPasswordEditPopup").style.display="flex";}
+function closeUserPasswordEdit(){document.getElementById("userPasswordEditPopup").style.display="none";editingUserPasswordId=null;}
+async function saveUserPasswordEdit(){const u=users.find(x=>x.id===editingUserPasswordId);if(!u)return;u.password=document.getElementById("userPasswordEditInput").value.trim();saveDataLocally();renderUserPasswordSettings();closeUserPasswordEdit();renderUsers();await saveToCloudOnly();}
 
 function openSettingPage(page){document.querySelectorAll('.settings-sub').forEach(x=>x.classList.remove('active'));const sp=document.getElementById('settingsPopup');if(sp)sp.classList.toggle('commission-window-wide',page==='commission');let id=page==='home'?'settingsHome':'settings'+page.charAt(0).toUpperCase()+page.slice(1);let el=document.getElementById(id);if(el)el.classList.add('active');if(page==='commission'){renderCommissionSettings();renderCommissionHistoryPanel();}if(page==='leaderPassword'){renderLeaderPasswordSettings();}if(page==='banner'){applyLogoUI();}}
 function updatePdfPreview(){
@@ -422,9 +458,9 @@ function openTxActionPopup(i){document.getElementById("txActionPopup").style.dis
 function editTransaction(i){let t=users[currentUser].transactions[i];document.getElementById("tDate").value=String(t.date).split("T")[0];document.getElementById("tDesc").value=t.desc||"";document.getElementById("tCredit").value=t.credit||"";document.getElementById("tDebit").value=t.debit||"";editIndex=i;document.getElementById("entryPopup").style.display="flex"}  
 async function deleteTransaction(i){if(confirm("இந்த எண்ட்ரியை நீக்கவா?")){users[currentUser].transactions.splice(i,1);renderTransactions();await saveToCloudOnly();if(returnToLeaderDetail)renderLeaderDetail()}}  
 function leaderOptions(selected){ensureLeaderMembership();return `<option value="" ${!selected?"selected":""}>Unassigned</option>`+leaders.map(l=>`<option value="${esc(l.id)}" ${l.id===selected?"selected":""}>${esc(l.name)}</option>`).join("")}  
-function openUserForm(i=null){editIndex=i;document.getElementById("userFormTitle").innerText=i===null?"Add User":"Edit User";document.getElementById("uName").value=i===null?"":(users[i]?.name||"");document.getElementById("uMobile").value=i===null?"":(users[i]?.mobile||"");document.getElementById("uLeader").innerHTML=leaderOptions(i===null?(leaders[0]?.id||""):(users[i]?.leaderId||""));document.getElementById("userFormPopup").style.display="flex"}  
+function openUserForm(i=null){editIndex=i;document.getElementById("userFormTitle").innerText=i===null?"Add User":"Edit User";document.getElementById("uName").value=i===null?"":(users[i]?.name||"");document.getElementById("uMobile").value=i===null?"":(users[i]?.mobile||"");document.getElementById("uPassword").value=i===null?"":(users[i]?.password||"");document.getElementById("uLeader").innerHTML=leaderOptions(i===null?(leaders[0]?.id||""):(users[i]?.leaderId||""));document.getElementById("userFormPopup").style.display="flex"}  
 function closeUserForm(){document.getElementById("userFormPopup").style.display="none";editIndex=null}  
-async function saveUserForm(){let n=document.getElementById("uName").value.trim(),m=document.getElementById("uMobile").value.trim(),lid=document.getElementById("uLeader").value;if(!n)return alert("User name is required!");if(editIndex===null)users.push({id:"user_"+Date.now()+"_"+Math.random().toString(36).slice(2,8),name:n,mobile:m,leaderId:lid,transactions:[]});else{users[editIndex].name=n;users[editIndex].mobile=m;users[editIndex].leaderId=lid}closeUserForm();renderUsers();refreshLeaderDashboard();await saveToCloudOnly()}  
+async function saveUserForm(){let n=document.getElementById("uName").value.trim(),m=document.getElementById("uMobile").value.trim(),pw=document.getElementById("uPassword").value.trim(),lid=document.getElementById("uLeader").value;if(!n)return alert("User name is required!");if(editIndex===null)users.push({id:"user_"+Date.now()+"_"+Math.random().toString(36).slice(2,8),name:n,mobile:m,password:pw,leaderId:lid,transactions:[]});else{users[editIndex].name=n;users[editIndex].mobile=m;users[editIndex].password=pw;users[editIndex].leaderId=lid}closeUserForm();renderUsers();refreshLeaderDashboard();await saveToCloudOnly()}  
 function addUser(){openUserForm()}function editUser(i){closeActionPopup();openUserForm(i)}async function deleteUser(i){if(confirm("இந்த யூசரை ஆப்பிலிருந்து நிரந்தரமாக நீக்கவா?")){users.splice(i,1);closeActionPopup();renderUsers();refreshLeaderDashboard();await saveToCloudOnly()}}  
 function exportData(){let a=document.createElement("a");a.href="data:text/json;charset=utf-8,"+encodeURIComponent(JSON.stringify({users,leaders,leaderCommissions,leaderCommissionHistory}));a.download="Finance_Backup_2026.json";a.click()}  
 function allDeleteWithExport(){if(!users.length)return alert("நீக்குவதற்கு டேட்டா எதுவும் இல்லை!");if(confirm("அனைத்து டேட்டாவும் நிரந்தரமாக நீக்கப்படும். முதலில் பேக்கப் எடுக்கப்படும். தொடரலாமா?")){exportData();setTimeout(async()=>{users=[];leaders=[];leaderCommissions={};leaderCommissionHistory=[];saveDataLocally();await saveToCloudOnly();renderUsers();refreshLeaderDashboard();closeSettingsPopup();alert("அனைத்து டேட்டாக்களும் நீக்கப்பட்டது!")},500)}}  
