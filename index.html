@@ -8,12 +8,12 @@
 *{box-sizing:border-box}body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#111;color:#fff;user-select:none;-webkit-user-select:none;font-size:var(--app-font-size);font-weight:var(--app-font-weight)}  
 .wrapper{max-width:var(--app-width);margin:auto;padding-bottom:50px;background:#111;min-height:var(--app-height);height:var(--app-height);overflow-y:auto;border:1px solid #222}  
 header{background:var(--theme-gradient);color:#111;text-align:center;padding:18px;font-size:calc(var(--app-font-size) + 4px);font-weight:bold;box-shadow:0 4px 10px #0008;position:relative;display:flex;align-items:center;justify-content:center;gap:10px}
-#signOutBtn{position:absolute;left:9px;top:9px;z-index:5;width:36px;height:36px;padding:0;border-radius:10px;border:1px solid #fca5a5;background:linear-gradient(145deg,#ff4242,#a40000);color:#fff;font-size:23px;line-height:1;font-weight:900;display:grid;place-items:center;cursor:pointer;box-shadow:inset 0 1px 2px #ffffff66,0 3px 0 #5f0000,0 5px 10px #0006}
+#signOutBtn{display:none!important;position:absolute;left:9px;top:9px;z-index:5;width:36px;height:36px;padding:0;border-radius:10px;border:1px solid #fca5a5;background:linear-gradient(145deg,#ff4242,#a40000);color:#fff;font-size:23px;line-height:1;font-weight:900;display:grid;place-items:center;cursor:pointer;box-shadow:inset 0 1px 2px #ffffff66,0 3px 0 #5f0000,0 5px 10px #0006}
 #signOutBtn:hover{filter:brightness(1.12);transform:translateY(-1px)}
 .indicator-container{position:absolute;right:10px;top:9px;z-index:4}
 .header-company-3d{font-size:var(--banner-name-size,24px);color:var(--banner-name-color,#ffe7a0);-webkit-text-stroke:var(--banner-outline-width,1px) var(--banner-outline-color,#80570d);text-shadow:1px 1px 0 #9a6b12,2px 2px 0 #80570d,3px 3px 0 #4a3006,0 4px 8px #000;}
 @media(max-width:480px){header{padding:18px 48px;font-size:calc(var(--app-font-size) + 2px)}.header-company-3d{font-size:min(var(--banner-name-size,24px),22px)}}.app-logo{width:42px;height:42px;border-radius:10px;object-fit:cover;border:2px solid #1118;box-shadow:0 3px 8px #0008;display:none;background:#fff;flex:0 0 auto}.app-logo.visible{display:block}.logo-picker{width:100%;padding:11px 12px;border:1px solid #555;border-radius:9px;background:#333;color:#fff;font-size:14px;cursor:pointer}.logo-preview-wrap{display:flex;align-items:center;gap:12px;margin:8px 0 14px;padding:10px;background:#1a1a1a;border:1px solid #333;border-radius:10px}.logo-preview{width:58px;height:58px;border-radius:12px;object-fit:cover;border:2px solid var(--theme-color);background:#fff;display:none}.logo-preview.visible{display:block}.logo-remove{background:#e53935;color:#fff;border:0;border-radius:7px;padding:8px 10px;cursor:pointer;font-weight:bold}  
-.indicator-container{position:absolute;right:15px;top:50%;transform:translateY(-50%)}.g-led{width:28px;height:28px;border-radius:50%;background:#222;color:#ff4444;border:2px solid #ff4444;box-shadow:0 0 10px #ff4444,inset 0 0 5px #ff4444;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900}.g-led.connected{color:#0f0;border-color:#0f0;box-shadow:0 0 15px #0f0,inset 0 0 5px #0f0,0 0 5px #fff}  
+.indicator-container{position:absolute;right:15px;top:50%;transform:translateY(-50%)}.g-led{cursor:pointer;touch-action:manipulation;width:28px;height:28px;border-radius:50%;background:#222;color:#ff4444;border:2px solid #ff4444;box-shadow:0 0 10px #ff4444,inset 0 0 5px #ff4444;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900}.g-led.connected{color:#0f0;border-color:#0f0;box-shadow:0 0 15px #0f0,inset 0 0 5px #0f0,0 0 5px #fff}  
 .dashboard{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:10px}.stat-box{background:#222;padding:15px 10px;border-radius:10px;text-align:center;border:1px solid #333}.stat-box.red-border{border:2px solid #e53935}.stat-box.blue-border{border:2px solid #1e88e5}.stat-box.green-border{border:2px solid #2eaa55}.stat-box small{color:#aaa;font-size:calc(var(--app-font-size) - 3px);text-transform:uppercase;font-weight:bold;display:block;margin-bottom:5px}.stat-box h2{margin:0;font-size:calc(var(--app-font-size) + 4px);color:var(--theme-color);font-weight:900}  
 .date-filter-box{background:#1a1a1a;border:1px solid #333;padding:10px;margin:0 10px 10px;border-radius:10px;display:flex;gap:8px;align-items:center;justify-content:space-between}.date-filter-box input{margin:0;padding:8px;font-size:calc(var(--app-font-size) - 2px);background:#222;color:#fff;border:1px solid #444;border-radius:6px}  
 .search-container{padding:10px}.search-input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--theme-color);background:#222;color:#fff;box-sizing:border-box;font-size:var(--app-font-size);font-weight:var(--app-font-weight)}  
@@ -99,6 +99,21 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 .login-mark{width:76px;height:76px;margin:0 auto 14px;border-radius:22px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#ffe066,#b8860b);color:#111;font-size:38px;box-shadow:0 8px 22px #0008;}
 .login-card h2{margin:8px 0;color:#ffd700}.login-card p{color:#bbb;font-size:13px;line-height:1.5}.login-card input,.login-card select{width:100%;padding:13px;margin:8px 0;border:1px solid #555;border-radius:10px;background:#292929;color:#fff;font-size:16px}
 .login-btn{width:100%;border:0;border-radius:11px;padding:13px;margin-top:9px;font-weight:900;font-size:15px;cursor:pointer}.login-primary{background:linear-gradient(145deg,#ffe066,#d4a017);color:#111}.login-biometric{background:linear-gradient(145deg,#0e7490,#164e63);color:#fff;border:1px solid #22d3ee}.login-error{min-height:20px;color:#ff6b6b;font-size:13px;margin-top:8px}
+
+/* Single whole-app light-to-dark controller */
+#globalColorControl{
+  display:flex;align-items:center;gap:8px;justify-content:center;
+  padding:7px 12px;background:#f4f8ff;color:#19365f;
+  border-bottom:1px solid #c8d9f2;font-size:12px;font-weight:800;
+  position:relative;z-index:4;
+}
+#globalColorControl label{white-space:nowrap}
+#globalColorControl span{font-size:11px;color:#425a78}
+#globalColorSlider{flex:1;min-width:60px;max-width:420px;margin:0;accent-color:#2368d8;cursor:ew-resize}
+@media(max-width:480px){
+  #globalColorControl{gap:6px;padding:7px 8px;font-size:11px}
+}
+
 </style>  
 
 <style>
@@ -192,7 +207,8 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
   </div>
 </div>
 <div id="loading">SAVE...</div><div class="wrapper" id="appWrapper" style="visibility:hidden">  
-<header><button id="signOutBtn" type="button" onclick="signOutAdmin()" aria-label="Sign out" title="Sign out">⏻</button><img id="appLogo" class="app-logo" alt="Logo"><span id="headerTitleText" class="header-company-3d">S PLUS LOAN APP</span><div class="indicator-container"><div id="ledLight" class="g-led">G</div></div></header>  <div id="mainScreen">  
+<header><img id="appLogo" class="app-logo" alt="Logo"><span id="headerTitleText" class="header-company-3d">S PLUS LOAN APP</span><div class="indicator-container"><div id="ledLight" class="g-led">G</div></div></header>
+<div id="mainScreen">  
 <div class="search-container" id="searchBoxWrapper"><input type="text" id="userSearch" class="search-input" placeholder="தேடவும்..." oninput="renderUsers()"></div>  
 <div class="dashboard" id="dashboardWrapper">  
 <div class="stat-box"><small>Total Users</small><h2 id="totalUsers">0</h2></div><div class="stat-box"><small>Total Balance</small><h2 id="totalBalance">0</h2></div>  
@@ -222,6 +238,17 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 <div id="leaderCreatePopup" class="popup-overlay" onclick="closeLeaderCreate()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="leaderFormTitle" style="color:var(--theme-color);margin-top:0">Create Leader</h3><input type="text" id="leaderNameInput" placeholder="Leader Name"><button class="gold" style="width:100%;padding:12px;margin-top:8px" onclick="saveLeader()">Save Leader</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeLeaderCreate()">Cancel</button></div></div>  <div id="userFormPopup" class="popup-overlay" onclick="closeUserForm()"><div class="popup-content" onclick="event.stopPropagation()"><h3 id="userFormTitle" style="color:var(--theme-color);margin-top:0">Add User</h3><input type="text" id="uName" placeholder="User Name"><input type="text" id="uMobile" placeholder="Mobile"><input type="text" id="uPassword" placeholder="User Password" autocomplete="off"><label style="display:block;text-align:left;color:#aaa;font-size:13px;margin-top:5px">Leader</label><select id="uLeader"></select><button class="gold" style="width:100%;padding:12px;margin-top:10px" onclick="saveUserForm()">Save User</button><button style="background:#555;color:#fff;width:100%;padding:12px;margin-top:10px" onclick="closeUserForm()">Cancel</button></div></div>  <div id="settingsPopup" class="popup-overlay" onclick="closeSettingsPopup()"><div class="popup-content" onclick="event.stopPropagation()">
 <h3 style="color:var(--theme-color);margin-top:0">⚙️ Settings</h3>
 <div id="settingsHome" class="settings-sub active">
+<div id="globalColorControl" aria-label="App color controller" class="settings-card">
+  <h4 style="margin:0 0 8px">🎨 App Color Control</h4>
+  <div style="font-size:12px;color:#888;margin-bottom:8px">ஒவ்வொரு பட்டன், கார்டு மற்றும் நிறமுள்ள பகுதியின் நிறத் தீவிரத்தை மாற்றவும்.</div>
+  <div style="display:flex;align-items:center;gap:8px">
+    <span style="font-size:11px">Normal</span>
+    <input id="globalColorSlider" type="range" min="0" max="100" value="0"
+           aria-label="Adjust colors of buttons and panels" style="flex:1;min-width:70px;cursor:ew-resize">
+    <span style="font-size:11px">Dim</span>
+  </div>
+</div>
+
 <div style="color:#aaa;font-size:12px;margin-bottom:10px">ஒரு option-ஐ தேர்வு செய்தால் அதற்கான தனி Settings screen திறக்கும்.</div>
 <div class="settings-nav">
 <button onclick="openSettingPage('banner')"><b>Banner</b><small>Banner name & logo</small></button>
@@ -306,6 +333,43 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 <div id="txActionPopup" class="popup-overlay" onclick="closeTxActionPopup()"><div class="popup-content" onclick="event.stopPropagation()"><h3 style="color:var(--theme-color)">Transaction Management</h3><button class="gold" id="txEditBtn" style="width:100%">✏️ Edit Entry</button><button style="background:#e53935;color:#fff;width:100%;margin-top:10px" id="txDeleteBtn">🗑️ Delete Entry</button><button style="background:#555;color:#fff;width:100%;margin-top:10px" onclick="closeTxActionPopup()">Cancel</button></div></div>  
 </div>  <script>  
 const CLOUD_URL="https://script.google.com/macros/s/AKfycbx8BkMWLe65CNNm2_Aezqg1OEgdC0SS3kz3L_g71rum__YHvF8GZS9HIYtizRRqldgZGw/exec";  
+
+function applyGlobalAppShade(value){
+  const amount=Math.max(0,Math.min(100,Number(value)||0))/100;
+  // Fade colored UI surfaces toward gray while preserving their lightness.
+  // This changes color saturation, not screen brightness.
+  const selectors=[
+    'button','.btn','.gold','.blue','.red','.green','.settings-nav button',
+    '.card','.stat-card','.summary-card','.user-card','.dashboard-card',
+    '.popup-content','.settings-card','.tab-button','.nav-button',
+    '.g-led','.badge','.pill','.chip','.balance-card',
+    'header','.header-company-3d','.app-logo',
+    '[style*="background"]'
+  ];
+  document.querySelectorAll(selectors.join(',')).forEach(el=>{
+    if(el.id==='globalColorControl' || el.closest('#globalColorControl')) return;
+    if(el.id==='ledLight' || el.closest('#ledLight')) return;
+    if(!el.dataset.colorOriginalFilter) {
+      el.dataset.colorOriginalFilter = el.style.filter || '';
+    }
+    el.style.filter = amount===0
+      ? el.dataset.colorOriginalFilter
+      : (el.dataset.colorOriginalFilter ? el.dataset.colorOriginalFilter+' ' : '')+
+        'saturate('+(1-amount*0.88).toFixed(3)+')';
+  });
+  try{localStorage.setItem("financeGlobalShade",String(Math.round(amount*100)))}catch(e){}
+}
+function initGlobalColorSlider(){
+  const slider=document.getElementById("globalColorSlider");
+  if(!slider || slider.dataset.colorWired==="1")return;
+  slider.dataset.colorWired="1";
+  let saved=0;try{saved=Number(localStorage.getItem("financeGlobalShade")||0)}catch(e){}
+  slider.value=String(Math.max(0,Math.min(100,saved)));
+  applyGlobalAppShade(slider.value);
+  slider.addEventListener("input",()=>applyGlobalAppShade(slider.value));
+}
+document.addEventListener("DOMContentLoaded",initGlobalColorSlider);
+
 function safeJSON(key,fallback){try{const raw=localStorage.getItem(key);if(!raw)return fallback;const v=JSON.parse(raw);return v??fallback}catch(e){console.warn("Invalid local data:",key,e);return fallback}}
 let users=safeJSON("financeUsersData",[]);
 if(!Array.isArray(users))users=[];
@@ -642,5 +706,47 @@ function tryAdminBiometric(){
 }
 document.addEventListener("keydown",e=>{if(e.key==="Enter"&&!document.getElementById("loginGate").classList.contains("hidden"))submitAdminLogin();});
 window.onload=()=>{try{ensureLeaderMembership();initConfig();renderUsers();setTimeout(()=>{try{fetchFromCloud(true)}catch(e){console.error("Cloud startup error",e)}},300)}catch(e){console.error("APP STARTUP ERROR",e);try{applyConfigUI()}catch(_){}try{renderUsers()}catch(_){}alert("App startup error. Local data was not deleted. Please reload once.")}}  
-</script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>  </body>  
+</script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js">
+
+
+
+function wireGreenLedSignOut(){
+  const candidates = [
+    document.getElementById("ledLight"),
+    document.querySelector(".g-led"),
+    document.querySelector("[aria-label*='GLED' i]")
+  ].filter(Boolean);
+  candidates.forEach(led=>{
+    if(led.dataset.signoutWired==="1")return;
+    led.dataset.signoutWired="1";
+    led.style.cursor="pointer";
+    led.style.pointerEvents="auto";
+    led.setAttribute("role","button");
+    led.setAttribute("tabindex","0");
+    led.setAttribute("aria-label","GLED - Sign out");
+    led.title="GLED — click to sign out";
+    const doSignOut = e=>{
+      e.preventDefault();
+      e.stopPropagation();
+      if(typeof signOutAdmin==="function") signOutAdmin();
+      else if(typeof logout==="function") logout();
+      else {
+        const logoutButton=document.querySelector('[onclick*="signOut"],[onclick*="logout"],#signOutBtn');
+        if(logoutButton) logoutButton.click();
+      }
+    };
+    led.addEventListener("click",doSignOut,true);
+    led.addEventListener("keydown",e=>{
+      if(e.key==="Enter"||e.key===" "){doSignOut(e);}
+    });
+  });
+}
+if(document.readyState==="loading"){
+  document.addEventListener("DOMContentLoaded",()=>{wireGreenLedSignOut();initGlobalColorSlider();});
+}else{
+  wireGreenLedSignOut();
+  initGlobalColorSlider();
+}
+
+</script>  </body>  
 </html>
