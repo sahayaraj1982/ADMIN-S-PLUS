@@ -1795,62 +1795,26 @@ button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-
 }
 </style>
 
+</body>  
 
-<style>
-/* Mobile-friendly color controls: scrollable palette + light/dark adjustment */
-.color-control-native{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important;left:-9999px!important}
-.mobile-color-picker{margin:8px 0 14px;padding:10px;border:1px solid #39495c;border-radius:12px;background:#0d1724;max-width:100%;box-sizing:border-box}
-.mobile-color-picker .mcp-current-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;color:#e8edf5;font-size:13px}
-.mobile-color-picker .mcp-preview{width:34px;height:30px;border:2px solid #aab4c2;border-radius:7px;flex:none}
-.mobile-color-picker .mcp-swatches{display:grid;grid-template-columns:repeat(7,minmax(26px,1fr));gap:7px;max-height:150px;overflow-y:auto;overscroll-behavior:contain;padding:3px 4px 8px;touch-action:pan-y;-webkit-overflow-scrolling:touch}
-.mobile-color-picker .mcp-swatch{height:30px;min-width:0;border:2px solid rgba(255,255,255,.48);border-radius:7px;padding:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.15)}
-.mobile-color-picker .mcp-swatch[aria-pressed="true"]{outline:3px solid #ffd700;outline-offset:1px}
-.mobile-color-picker .mcp-brightness{width:100%;accent-color:#ffd700;min-height:28px}
-.mobile-color-picker .mcp-labels{display:flex;justify-content:space-between;color:#c6ced9;font-size:12px}
-@media(max-width:600px){.mobile-color-picker .mcp-swatches{grid-template-columns:repeat(6,minmax(28px,1fr));max-height:170px}.mobile-color-picker .mcp-swatch{height:34px}.mobile-color-picker{padding:9px}}
+<style id="bright-scroll-color-palette-fix">
+.color-quick-palette{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;overflow-y:hidden;padding:8px 2px 12px;margin:2px 0 8px;max-width:100%;-webkit-overflow-scrolling:touch;touch-action:pan-x;scrollbar-width:thin;}
+.color-quick-palette button{flex:0 0 34px;width:34px;height:34px;min-width:34px;min-height:34px;padding:0!important;border:2px solid rgba(255,255,255,.72)!important;border-radius:8px!important;box-shadow:0 0 0 1px #26364a,0 2px 6px #0005!important;}
+.color-quick-palette button:focus{outline:3px solid #ffd700;outline-offset:2px}
+.color-quick-palette-label{font-size:12px;color:#b6cad8;margin:2px 0 0}
 </style>
-
-
-<script>
+<script id="bright-scroll-color-palette-fix-script">
 (function(){
- const colors=['#ffffff','#f5f5f5','#d9e2ec','#9e9e9e','#616161','#212121','#000000',
- '#fff9c4','#fff176','#ffd700','#ffb300','#ff8f00','#ff5722','#f44336','#c62828',
- '#f8bbd0','#ec407a','#ad1457','#f3e5f5','#ce93d8','#ab47bc','#673ab7','#9575cd',
- '#d1c4e9','#3f51b5','#1e88e5','#42a5f5','#81d4fa','#00bcd4','#00e5ff','#80deea',
- '#b2dfdb','#009688','#4db6ac','#c8e6c9','#a5d6a7','#4caf50','#2e7d32','#8bc34a',
- '#cddc39','#795548','#a1887f','#607d8b','#90a4ae'];
- function mix(hex,amount){
-   hex=(hex||'#ffd700').replace('#',''); if(hex.length===3)hex=hex.split('').map(x=>x+x).join('');
-   let rgb=[0,2,4].map(i=>parseInt(hex.slice(i,i+2),16));
-   rgb=rgb.map(v=>Math.max(0,Math.min(255,Math.round(amount<0?v*(1+amount):v+(255-v)*amount))));
-   return '#'+rgb.map(v=>v.toString(16).padStart(2,'0')).join('');
- }
- function init(){
-  document.querySelectorAll('input[type="color"]:not([data-mcp-ready])').forEach(input=>{
-   input.dataset.mcpReady='1'; input.classList.add('color-control-native');
-   const panel=document.createElement('div'); panel.className='mobile-color-picker';
-   const row=document.createElement('div'); row.className='mcp-current-row';
-   const preview=document.createElement('span'); preview.className='mcp-preview';
-   const value=document.createElement('span'); value.textContent='Selected: '+input.value.toUpperCase(); row.append(preview,value);
-   const grid=document.createElement('div'); grid.className='mcp-swatches'; grid.setAttribute('aria-label','Scrollable color palette');
-   let base=input.value||'#ffd700', amount=0;
-   const buttons=[];
-   function update(c, callApply=true){input.value=c;preview.style.background=c;value.textContent='Selected: '+c.toUpperCase();buttons.forEach(b=>b.setAttribute('aria-pressed',b.dataset.color.toLowerCase()===base.toLowerCase()?'true':'false'));if(callApply){input.dispatchEvent(new Event('input',{bubbles:true}));input.dispatchEvent(new Event('change',{bubbles:true}));}}
-   colors.forEach(c=>{const b=document.createElement('button');b.type='button';b.className='mcp-swatch';b.style.background=c;b.title=c;b.setAttribute('aria-label','Choose '+c);b.setAttribute('aria-pressed','false');b.dataset.color=c;b.addEventListener('click',()=>{base=c;amount=0;slider.value='0';update(base);});grid.appendChild(b);buttons.push(b);});
-   const label=document.createElement('div');label.className='mcp-labels';label.innerHTML='<span>Light</span><span>Color shade</span><span>Dark</span>';
-   const slider=document.createElement('input');slider.type='range';slider.className='mcp-brightness';slider.min='-80';slider.max='80';slider.step='5';slider.value='0';slider.setAttribute('aria-label','Light to dark color adjustment');
-   slider.addEventListener('input',()=>{amount=Number(slider.value)/100;update(mix(base,amount));});
-   panel.append(row,grid,label,slider); input.insertAdjacentElement('afterend',panel);
-   update(input.value,false);
-  });
- }
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
- const observer=new MutationObserver(()=>init());
- window.addEventListener('load',()=>observer.observe(document.body,{childList:true,subtree:true}));
+ const colors=['#ff0000','#ff3b30','#ff6b00','#ff9500','#ffc400','#ffff00','#b7ff00','#39ff14','#00e676','#00ffd5','#00ffff','#00bfff','#007bff','#003cff','#2400ff','#7b2cff','#b000ff','#ff00ff','#ff1493','#ff4fa3','#ffffff','#e6e6e6','#bfc7d5','#808080','#333333','#000000','#8b0000','#a52a2a','#006400','#008080','#000080','#4b0082','#f4a261','#ffd6a5','#caffbf','#9bf6ff','#bdb2ff','#ffc6ff'];
+ document.querySelectorAll('input[type="color"]').forEach(function(input){
+   if(input.dataset.brightPaletteAdded) return; input.dataset.brightPaletteAdded='1';
+   const wrap=document.createElement('div'); wrap.className='color-quick-palette'; wrap.setAttribute('aria-label','Scrollable bright color choices');
+   colors.forEach(function(color){const b=document.createElement('button');b.type='button';b.title=color;b.setAttribute('aria-label','Select '+color);b.style.backgroundColor=color;b.addEventListener('click',function(){input.value=color;input.dispatchEvent(new Event('input',{bubbles:true}));input.dispatchEvent(new Event('change',{bubbles:true}));});wrap.appendChild(b);});
+   input.insertAdjacentElement('afterend',wrap);
+ });
 })();
 </script>
 
-</body>  
 </html>
 
 <style id="settings-close-button-inside-final">
@@ -1914,7 +1878,7 @@ button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-
 :root{--ui-bg:#0b1220;--ui-panel:#121d30;--ui-panel2:#17263d;--ui-border:#2b3d59;--ui-text:#edf4ff;--ui-muted:#a9bad2;--ui-accent:#f3c969;--ui-accent2:#66d6c2;--ui-shadow:0 12px 28px rgba(0,0,0,.28)}
 html{background:var(--ui-bg)} body{background:radial-gradient(ellipse at top,#172943 0%,#0b1220 55%,#080d17 100%)!important;color:var(--ui-text);font-family:Inter,'Segoe UI',Arial,sans-serif;letter-spacing:.1px}
 .wrapper{background:transparent!important;border:0!important;box-shadow:none!important;padding-bottom:36px}
-header{background:linear-gradient(120deg,#f4d27b 0%,#e5b84e 55%,#b9842e 100%)!important;color:#172033!important;border:0!important;box-shadow:0 8px 24px #0005!important;border-radius:0 0 22px 22px;padding-top:18px;padding-bottom:18px}
+header{background:var(--banner-background,#ffd700)!important;color:#172033!important;border:0!important;box-shadow:0 8px 24px #0005!important;border-radius:0 0 22px 22px;padding-top:18px;padding-bottom:18px}
 .header-company-3d{filter:drop-shadow(0 2px 1px #694b13)!important}
 #mainScreen,#userScreen,#leaderScreen,#leaderDetailScreen{color:var(--ui-text)}
 .search-container{padding:14px 14px 8px!important}.search-input{background:var(--ui-panel)!important;border:1px solid var(--ui-border)!important;border-radius:14px!important;color:var(--ui-text)!important;box-shadow:inset 0 1px 0 #ffffff08}
