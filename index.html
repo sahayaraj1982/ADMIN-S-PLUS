@@ -642,7 +642,7 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 <button type="button" class="settings-close-inside" onclick="closeSettingsPopup()">Close ✕</button><h3 style="color:var(--theme-color);margin-top:0;padding-right:82px">⚙️ Settings</h3>
 <div id="settingsHome" class="settings-sub active">
 <div id="globalColorControl" aria-label="Color controller">
-  <input id="globalColorSlider" type="range" min="0" max="100" value="0" aria-label="Color intensity">
+  <input id="globalColorSlider" type="range" min="0" max="100" value="50" aria-label="Color intensity">
 </div>
 
 <div style="color:#aaa;font-size:12px;margin-bottom:10px">ஒரு option-ஐ தேர்வு செய்தால் அதற்கான தனி Settings screen திறக்கும்.</div>
@@ -730,17 +730,19 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 const CLOUD_URL="https://script.google.com/macros/s/AKfycbx8BkMWLe65CNNm2_Aezqg1OEgdC0SS3kz3L_g71rum__YHvF8GZS9HIYtizRRqldgZGw/exec";  
 
 function applyGlobalAppShade(value){
-  const amount=Math.max(0,Math.min(100,Number(value)||0))/100;
-  // Reduce saturation only: brightness and text contrast are not dimmed.
-  const saturation=1-(amount*0.90);
+  // Center (50) is normal color intensity; left softens colors, right strengthens them.
+  const position=Math.max(0,Math.min(100,Number(value)||0));
+  const saturation=position<=50
+    ? 0.15 + (position/50)*0.85
+    : 1 + ((position-50)/50)*1.0;
   document.documentElement.style.setProperty('--app-saturation',saturation.toFixed(3));
-  try{localStorage.setItem("financeGlobalShade",String(Math.round(amount*100)))}catch(e){}
+  try{localStorage.setItem("financeGlobalShade",String(Math.round(position)))}catch(e){}
 }
 function initGlobalColorSlider(){
   const slider=document.getElementById("globalColorSlider");
   if(!slider || slider.dataset.colorWired==="1")return;
   slider.dataset.colorWired="1";
-  let saved=0;try{saved=Number(localStorage.getItem("financeGlobalShade")||0)}catch(e){}
+  let saved=50;try{const stored=localStorage.getItem("financeGlobalShade");if(stored!==null)saved=Number(stored)}catch(e){}
   slider.value=String(Math.max(0,Math.min(100,saved)));
   applyGlobalAppShade(slider.value);
   slider.addEventListener("input",()=>applyGlobalAppShade(slider.value));
@@ -1111,6 +1113,48 @@ function printCommissionHistory(lid){
     padding: 10px 0 max(10px, env(safe-area-inset-bottom)); margin-top: 10px !important;
   }
   #settingsPopup > .popup-content > div:last-child button { width: 100%; min-height: 44px; }
+}
+</style>
+
+
+<style id="banner-color-sync-and-slider-fix">
+/* Keep the existing button and entry-field backgrounds unchanged. Only retain the color intensity slider layout. */
+#globalColorControl { width:100%; margin:8px 0 14px; padding:8px 10px !important; border:1px solid #425a78 !important; border-radius:12px; background:#101c2e !important; }
+#globalColorSlider { width:100% !important; max-width:none !important; min-height:30px; accent-color:var(--banner-background,#ffd700) !important; touch-action:pan-x; }
+</style>
+
+
+<style id="transaction-date-readable-size-fix">
+/* Make transaction dates easier to read without changing other columns or layout. */
+#userScreen #transactionTable th:first-child,
+#userScreen #transactionTable td:first-child{
+  font-size:clamp(13px,3.5vw,16px)!important;
+  font-weight:800!important;
+  letter-spacing:0!important;
+  white-space:nowrap!important;
+  overflow-wrap:normal!important;
+  word-break:keep-all!important;
+  padding-left:4px!important;
+  padding-right:4px!important;
+}
+</style>
+
+
+<style id="force-user-total-balance-white-final">
+/* Force the displayed total balance amount to white on the user transaction screen only */
+#userScreen .profile-header .prof-details-row h3#profBalance,
+#userScreen #profBalance { color: #fff !important; -webkit-text-fill-color: #fff !important; text-shadow: none !important; }
+</style>
+
+<style id="force-user-total-balance-white-final">
+/* Force the Total Balance label and amount in the user transaction header to white. */
+#userScreen .profile-header .prof-details-row h3#profBalance,
+#userScreen .prof-details-row #profBalance,
+#userScreen h3#profBalance,
+#userScreen #profBalance {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  text-shadow: none !important;
 }
 </style>
 
@@ -1795,6 +1839,83 @@ button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-
 }
 </style>
 
+
+<style id="banner-color-sync-and-centered-intensity">
+/* Banner Background Color changes TEXT only for transaction headings and the displayed balance. */
+#userScreen #transactionTable thead th,
+#userScreen .table-container table thead th {
+  color: var(--banner-background, #ffd700) !important;
+  font-weight: 900 !important;
+}
+#userScreen .prof-details-row #profBalance,
+#userScreen #profBalance {
+  color: var(--banner-background, #ffd700) !important;
+}
+/* Keep all original button, input, and table-header backgrounds unchanged. */
+#globalColorControl { width:100%; padding:8px 10px 12px; }
+#globalColorSlider { display:block; width:100% !important; max-width:none !important; min-width:60px; min-height:34px; margin:0; accent-color:var(--banner-background,#ffd700) !important; cursor:ew-resize; touch-action:pan-x; }
+</style>
+
+<style id="compact-color-intensity-slider-final">
+/* Compact intensity slider: center is normal, left softens, right strengthens. */
+#globalColorControl {
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:auto !important;
+  min-height:0 !important;
+  margin:4px auto 8px !important;
+  padding:2px 4px !important;
+  background:transparent !important;
+  border:0 !important;
+  border-radius:0 !important;
+}
+#globalColorSlider {
+  display:block !important;
+  width:150px !important;
+  max-width:150px !important;
+  min-width:100px !important;
+  height:18px !important;
+  min-height:18px !important;
+  margin:0 !important;
+  padding:0 !important;
+  accent-color:var(--banner-background, #ffd700) !important;
+  cursor:ew-resize !important;
+  touch-action:pan-x;
+}
+@media(max-width:480px){
+  #globalColorSlider { width:120px !important; max-width:120px !important; min-width:90px !important; }
+}
+</style>
+
+<style id="transaction-date-readable-size-fix">
+/* Make transaction dates easier to read without changing other columns or layout. */
+#userScreen #transactionTable th:first-child,
+#userScreen #transactionTable td:first-child{
+  font-size:clamp(13px,3.5vw,16px)!important;
+  font-weight:800!important;
+  letter-spacing:0!important;
+  white-space:nowrap!important;
+  overflow-wrap:normal!important;
+  word-break:keep-all!important;
+  padding-left:4px!important;
+  padding-right:4px!important;
+}
+</style>
+
+
+<style id="force-user-total-balance-white-final">
+/* Force the Total Balance label and amount in the user transaction header to white. */
+#userScreen .profile-header .prof-details-row h3#profBalance,
+#userScreen .prof-details-row #profBalance,
+#userScreen h3#profBalance,
+#userScreen #profBalance {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  text-shadow: none !important;
+}
+</style>
+
 </body>  
 
 <style id="bright-scroll-color-palette-fix">
@@ -1815,6 +1936,20 @@ button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-
 })();
 </script>
 
+
+
+<style id="back-entry-buttons-match-banner-background">
+/* Back and Entry buttons use the same background color as the app banner/header. */
+#userScreen .prof-header-buttons button,
+#userScreen .prof-header-buttons button:first-child,
+#userScreen .prof-header-buttons button:last-child {
+  background: var(--banner-background, #ffd700) !important;
+  background-image: none !important;
+  color: #172033 !important;
+  border: 1px solid color-mix(in srgb, var(--banner-background, #ffd700) 72%, #000) !important;
+  font-weight: 800 !important;
+}
+</style>
 </html>
 
 <style id="settings-close-button-inside-final">
@@ -1898,4 +2033,14 @@ input,select,textarea,input[type=date],input[type=text],input[type=number]{backg
 /* Keep functional visibility states intact */
 .hidden{display:none!important}
 
+</style>
+
+<style id="banner-text-only-final-fix">
+#userScreen #transactionTable thead th { color: var(--banner-background, #ffd700) !important; }
+#userScreen #profBalance { color: var(--banner-background, #ffd700) !important; }
+</style>
+
+<style id="user-transaction-total-balance-white-fix">
+/* User transaction screen: keep Total Balance text white only */
+#userScreen #profBalance { color: #ffffff !important; }
 </style>
