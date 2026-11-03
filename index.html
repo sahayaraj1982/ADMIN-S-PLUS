@@ -124,7 +124,7 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 #leaderDetailScreen .leader-card .lc-main b,
 #leaderScreen .leader-card .lc-main > b,
 #leaderDetailScreen .leader-card .lc-main > b {
-  font-size: var(--leader-name-size, 18px) !important;
+  font-size: min(var(--leader-name-size, 18px), 18px) !important;
   color: var(--leader-name-color, #ffe7a0) !important;
   line-height: 1.18 !important;
 }
@@ -625,9 +625,9 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 <!-- NEW: Leader dashboard -->  
 <div class="dashboard" id="leaderDashboard">  
 <div class="stat-box green-border"><small>Total Leaders</small><h2 id="leaderCount">0</h2></div>  
-<div class="stat-box blue-border"><small>Total Credit</small><h2 id="leaderTotalCredit">₹ 0</h2></div>  
+<div class="stat-box green-border compact-balance"><small>Total Balance</small><h2 id="leaderGrandBalance">₹ 0</h2></div>  
 <div class="stat-box red-border"><small>Total Debit</small><h2 id="leaderTotalDebit">₹ 0</h2></div>  
-<div class="stat-box green-border compact-balance"><small>Total Balance</small><h2 id="leaderGrandBalance">₹ 0</h2></div><div class="stat-box green-border"><small><span id="leaderCommissionLeaderCount">0</span> Leader 1%</small><h2 id="leaderCommissionLeaderCountValue">0</h2></div><div class="stat-box green-border"><small>Commission</small><h2 id="leaderGrandCommission">₹ 0</h2></div>  
+<div class="stat-box blue-border"><small>Total Credit</small><h2 id="leaderTotalCredit">₹ 0</h2></div><div class="stat-box green-border"><small><span id="leaderCommissionLeaderCount">0</span> Leader 1%</small><h2 id="leaderCommissionLeaderCountValue">0</h2></div><div class="stat-box green-border"><small>Commission</small><h2 id="leaderGrandCommission">₹ 0</h2></div>  
 </div>  
 <div class="universal-toolbar"><button style="background:#e53935;color:#fff" onclick="openLeaderPDFSelector()">📄 PDF</button><button style="background:#25D366;color:#fff" onclick="shareSelectedLeadersWhatsApp()">📱 WhatsApp</button><span id="leaderManagerSelectedCount" class="selected-count">0 selected</span></div><div id="leaderManagerList"></div>  
 </div>  <div id="leaderDetailScreen" class="hidden">  
@@ -659,7 +659,7 @@ input[type=date],input[type=text],input[type=number],select{width:100%;margin:8p
 </div></div>
 <div id="settingsBanner" class="settings-sub">
 <button class="settings-back" onclick="openSettingPage('home')">← Settings</button>
-<div class="settings-card"><h4>🏷️ Banner</h4><label>Banner Name</label><input type="text" id="setAppTitle" oninput="applySettings()"><div style="color:#888;font-size:12px">இந்த பெயர் App banner மற்றும் PDF header இரண்டிலும் பயன்படுத்தப்படும்.</div><label>Banner Background Color</label><input type="color" id="setBannerBackgroundColor" value="#ffd700" style="width:100%;height:46px;border:0;background:transparent" oninput="applySettings()"><div style="color:#aaa;font-size:12px">ஹெட்லைன் பேனரின் பின்னணி நிறத்தை இங்கே தனியாக மாற்றலாம்.</div><label>Banner Name Font Size: <span id="bannerNameSizeVal">24</span>px</label><input type="range" id="setBannerNameSize" min="14" max="42" step="1" oninput="applySettings()"><label>Banner Text Color</label><input type="color" id="setBannerNameColor" value="#ffe7a0" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><label>Banner Letter Outline Color</label><input type="color" id="setBannerOutlineColor" value="#80570d" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><hr style="border-color:#444;margin:16px 0"><h4>👤 User Screen Name</h4><label>User Name Font Size: <span id="profileNameSizeVal">22</span>px</label><input type="range" id="setProfileNameSize" min="12" max="40" step="1" oninput="applySettings()"><label>User Name Color</label><input type="color" id="setProfileNameColor" value="#2196f3" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><label>User Name Board Height: <span id="profileNameHeightVal">36</span>px</label><input type="range" id="setProfileNameHeight" min="24" max="90" step="2" oninput="applySettings()"><div style="color:#aaa;font-size:12px">User Screen-ல் பெயரின் நிறம் மற்றும் அளவை இங்கே மாற்றலாம்.</div><hr style="border-color:#444;margin:16px 0"><h4>👑 Leader User Name</h4><label>Leader Name Font Size: <span id="leaderNameSizeVal">18</span>px</label><input type="range" id="setLeaderNameSize" min="10" max="32" step="1" oninput="applySettings()"><label>Leader Name Color</label><input type="color" id="setLeaderNameColor" value="#ffe7a0" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><label>Leader Name Board Height: <span id="leaderNameHeightVal">36</span>px</label><input type="range" id="setLeaderNameHeight" min="24" max="90" step="2" oninput="applySettings()"><div style="color:#aaa;font-size:12px">Leader பட்டியல் மற்றும் Leader folder-க்குள் உள்ள User பெயர்களின் அளவு, நிறத்தை இங்கே மாற்றலாம்.</div><hr style="border-color:#444;margin:16px 0"><h4>📱 Mobile Number</h4><label>Mobile Number Font Size: <span id="mobileTextSizeVal">18</span>px</label><input type="range" id="setMobileTextSize" min="10" max="30" step="1" oninput="applySettings()"><label>Mobile Number Color</label><input type="color" id="setMobileTextColor" value="#ffffff" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><hr style="border-color:#444;margin:16px 0"><h4>💰 Balance Amount</h4><label>Balance Font Size: <span id="balanceTextSizeVal">18</span>px</label><input type="range" id="setBalanceTextSize" min="10" max="32" step="1" oninput="applySettings()"><label>Balance Color</label><input type="color" id="setBalanceTextColor" value="#ffffff" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><hr style="border-color:#444;margin:16px 0"><h4>💵 10% Collection Amount</h4><label>10% Collection Font Size: <span id="collectionTextSizeVal">13</span>px</label><input type="range" id="setCollectionTextSize" min="9" max="28" step="1" oninput="applySettings()"><label>10% Collection Color</label><input type="color" id="setCollectionTextColor" value="#ffd700" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><div style="color:#aaa;font-size:12px">இந்த அளவு மற்றும் நிறக் கட்டுப்பாடுகள் தொடர்புடைய எல்லா திரைகளிலும் ஒரே மாதிரியாகப் பயன்படுத்தப்படும்.</div></div>
+<div class="settings-card"><h4>🏷️ Banner</h4><label>Banner Name</label><input type="text" id="setAppTitle" oninput="applySettings()"><div style="color:#888;font-size:12px">இந்த பெயர் App banner மற்றும் PDF header இரண்டிலும் பயன்படுத்தப்படும்.</div><label>Banner Background Color</label><input type="color" id="setBannerBackgroundColor" value="#ffd700" style="width:100%;height:46px;border:0;background:transparent" oninput="applySettings()"><div style="color:#aaa;font-size:12px">ஹெட்லைன் பேனரின் பின்னணி நிறத்தை இங்கே தனியாக மாற்றலாம்.</div><label>Banner Name Font Size: <span id="bannerNameSizeVal">24</span>px</label><input type="range" id="setBannerNameSize" min="14" max="42" step="1" oninput="applySettings()"><label>Banner Text Color</label><input type="color" id="setBannerNameColor" value="#ffe7a0" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><label>Banner Letter Outline Color</label><input type="color" id="setBannerOutlineColor" value="#80570d" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><hr style="border-color:#444;margin:16px 0"><h4>👤 User Screen Name</h4><label>User Name Font Size: <span id="profileNameSizeVal">22</span>px</label><input type="range" id="setProfileNameSize" min="12" max="40" step="1" oninput="applySettings()"><label>User Name Color</label><input type="color" id="setProfileNameColor" value="#2196f3" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><label>User Name Board Height: <span id="profileNameHeightVal">36</span>px</label><input type="range" id="setProfileNameHeight" min="24" max="90" step="2" oninput="applySettings()"><div style="color:#aaa;font-size:12px">User Screen-ல் பெயரின் நிறம் மற்றும் அளவை இங்கே மாற்றலாம்.</div><hr style="border-color:#444;margin:16px 0"><h4>👑 Leader User Name</h4><label>Leader Name Font Size: <span id="leaderNameSizeVal">18</span>px</label><input type="range" id="setLeaderNameSize" min="10" max="18" step="1" oninput="applySettings()"><label>Leader Name Color</label><input type="color" id="setLeaderNameColor" value="#ffe7a0" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><label>Leader Name Board Height: <span id="leaderNameHeightVal">36</span>px</label><input type="range" id="setLeaderNameHeight" min="24" max="90" step="2" oninput="applySettings()"><div style="color:#aaa;font-size:12px">Leader பட்டியல் மற்றும் Leader folder-க்குள் உள்ள User பெயர்களின் அளவு, நிறத்தை இங்கே மாற்றலாம்.</div><hr style="border-color:#444;margin:16px 0"><h4>📱 Mobile Number</h4><label>Mobile Number Font Size: <span id="mobileTextSizeVal">18</span>px</label><input type="range" id="setMobileTextSize" min="10" max="30" step="1" oninput="applySettings()"><label>Mobile Number Color</label><input type="color" id="setMobileTextColor" value="#ffffff" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><hr style="border-color:#444;margin:16px 0"><h4>💰 Balance Amount</h4><label>Balance Font Size: <span id="balanceTextSizeVal">18</span>px</label><input type="range" id="setBalanceTextSize" min="10" max="32" step="1" oninput="applySettings()"><label>Balance Color</label><input type="color" id="setBalanceTextColor" value="#ffffff" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><hr style="border-color:#444;margin:16px 0"><h4>💵 10% Collection Amount</h4><label>10% Collection Font Size: <span id="collectionTextSizeVal">13</span>px</label><input type="range" id="setCollectionTextSize" min="9" max="28" step="1" oninput="applySettings()"><label>10% Collection Color</label><input type="color" id="setCollectionTextColor" value="#ffd700" style="width:100%;height:42px;border:0;background:transparent" oninput="applySettings()"><div style="color:#aaa;font-size:12px">இந்த அளவு மற்றும் நிறக் கட்டுப்பாடுகள் தொடர்புடைய எல்லா திரைகளிலும் ஒரே மாதிரியாகப் பயன்படுத்தப்படும்.</div></div>
 </div>
 <div id="settingsAppearance" class="settings-sub">
 <button class="settings-back" onclick="openSettingPage('home')">← Settings</button>
@@ -849,7 +849,7 @@ function updatePdfPreview(){
  }catch(e){console.warn("PDF preview",e)}
 }
 function applySettings(){
- appConfig.title=document.getElementById("setAppTitle").value||"S PLUS LOAN APP";appConfig.bannerBackgroundColor=document.getElementById("setBannerBackgroundColor").value||"#ffd700";appConfig.bannerNameSize=+document.getElementById("setBannerNameSize").value||24;document.getElementById("bannerNameSizeVal").innerText=appConfig.bannerNameSize;appConfig.bannerNameColor=document.getElementById("setBannerNameColor").value||"#ffe7a0";appConfig.bannerOutlineColor=document.getElementById("setBannerOutlineColor").value||"#80570d";appConfig.leaderNameSize=+document.getElementById("setLeaderNameSize").value||18;document.getElementById("leaderNameSizeVal").innerText=appConfig.leaderNameSize;appConfig.leaderNameColor=document.getElementById("setLeaderNameColor").value||"#ffe7a0";appConfig.profileNameSize=+document.getElementById("setProfileNameSize").value||22;document.getElementById("profileNameSizeVal").innerText=appConfig.profileNameSize;appConfig.profileNameColor=document.getElementById("setProfileNameColor").value||"#2196f3";appConfig.profileNameHeight=+document.getElementById("setProfileNameHeight").value||36;document.getElementById("profileNameHeightVal").innerText=appConfig.profileNameHeight;appConfig.leaderNameHeight=+document.getElementById("setLeaderNameHeight").value||36;document.getElementById("leaderNameHeightVal").innerText=appConfig.leaderNameHeight;appConfig.mobileTextSize=+document.getElementById("setMobileTextSize").value||18;document.getElementById("mobileTextSizeVal").innerText=appConfig.mobileTextSize;appConfig.mobileTextColor=document.getElementById("setMobileTextColor").value||"#ffffff";appConfig.balanceTextSize=+document.getElementById("setBalanceTextSize").value||18;document.getElementById("balanceTextSizeVal").innerText=appConfig.balanceTextSize;appConfig.balanceTextColor=document.getElementById("setBalanceTextColor").value||"#ffffff";appConfig.collectionTextSize=+document.getElementById("setCollectionTextSize").value||13;document.getElementById("collectionTextSizeVal").innerText=appConfig.collectionTextSize;appConfig.collectionTextColor=document.getElementById("setCollectionTextColor").value||"#ffd700";appConfig.width=+document.getElementById("setAppWidth").value;appConfig.height=+document.getElementById("setAppHeight").value||100;appConfig.fontSize=+document.getElementById("setAppFontSize").value||16;appConfig.userNameFontSize=+document.getElementById("setUserNameFontSize").value||16;document.getElementById("userNameFontSizeVal").innerText=appConfig.userNameFontSize;appConfig.fontWeight=document.getElementById("setAppFontWeight").value;appConfig.pdfFontSize=+document.getElementById("setPdfFontSize").value||14;appConfig.pdfBannerLeft=+document.getElementById("setPdfBannerLeft").value||14;appConfig.pdfBannerRight=+document.getElementById("setPdfBannerRight").value||10;appConfig.pdfTransaction=+document.getElementById("setPdfTransaction").value||11;appConfig.pdfTransactionBold=document.getElementById("setPdfTransactionBold").checked;appConfig.pdfTransactionBox=+document.getElementById("setPdfTransactionBox").value||8;appConfig.pdfTableHeader=+document.getElementById("setPdfTableHeader").value||12;appConfig.pdfTotals=+document.getElementById("setPdfTotals").value||12;document.getElementById("pdfFontSizeVal").innerText=appConfig.pdfFontSize;document.getElementById("pdfBannerLeftVal").innerText=appConfig.pdfBannerLeft;document.getElementById("pdfBannerRightVal").innerText=appConfig.pdfBannerRight;document.getElementById("pdfTransactionVal").innerText=appConfig.pdfTransaction;document.getElementById("pdfTransactionBoxVal").innerText=appConfig.pdfTransactionBox;document.getElementById("pdfTableHeaderVal").innerText=appConfig.pdfTableHeader;document.getElementById("pdfTotalsVal").innerText=appConfig.pdfTotals;appConfig.color=document.getElementById("setThemeColor").value;appConfig.showDash=document.getElementById("switchDash").checked;appConfig.showSearch=document.getElementById("switchSearch").checked;appConfig.showDateFilter=document.getElementById("switchDateFilter").checked;appConfig.showRedHighlight=document.getElementById("switchRedHighlight").checked;appConfig.showBlueHighlight=document.getElementById("switchBlueHighlight").checked;appConfig.showCloud=document.getElementById("switchCloud").checked;appConfig.showFirebase=document.getElementById("switchFirebase").checked;localStorage.setItem("financeConfig",JSON.stringify(appConfig));applyConfigUI();renderUsers();refreshLeaderDashboard();updatePdfPreview();}
+ appConfig.title=document.getElementById("setAppTitle").value||"S PLUS LOAN APP";appConfig.bannerBackgroundColor=document.getElementById("setBannerBackgroundColor").value||"#ffd700";appConfig.bannerNameSize=+document.getElementById("setBannerNameSize").value||24;document.getElementById("bannerNameSizeVal").innerText=appConfig.bannerNameSize;appConfig.bannerNameColor=document.getElementById("setBannerNameColor").value||"#ffe7a0";appConfig.bannerOutlineColor=document.getElementById("setBannerOutlineColor").value||"#80570d";appConfig.leaderNameSize=+document.getElementById("setLeaderNameSize").value||18;document.getElementById("leaderNameSizeVal").innerText=appConfig.leaderNameSize;appConfig.leaderNameColor=document.getElementById("setLeaderNameColor").value||"#ffe7a0";appConfig.profileNameSize=+document.getElementById("setProfileNameSize").value||22;document.getElementById("profileNameSizeVal").innerText=appConfig.profileNameSize;appConfig.profileNameColor=document.getElementById("setProfileNameColor").value||"#2196f3";appConfig.profileNameHeight=+document.getElementById("setProfileNameHeight").value||36;document.getElementById("profileNameHeightVal").innerText=appConfig.profileNameHeight;appConfig.leaderNameHeight=+document.getElementById("setLeaderNameHeight").value||36;document.getElementById("leaderNameHeightVal").innerText=appConfig.leaderNameHeight;appConfig.mobileTextSize=+document.getElementById("setMobileTextSize").value||18;document.getElementById("mobileTextSizeVal").innerText=appConfig.mobileTextSize;appConfig.mobileTextColor=document.getElementById("setMobileTextColor").value||"#ffffff";appConfig.balanceTextSize=+document.getElementById("setBalanceTextSize").value||18;document.getElementById("balanceTextSizeVal").innerText=appConfig.balanceTextSize;appConfig.balanceTextColor=document.getElementById("setBalanceTextColor").value||"#ffffff";appConfig.collectionTextSize=+document.getElementById("setCollectionTextSize").value||13;document.getElementById("collectionTextSizeVal").innerText=appConfig.collectionTextSize;appConfig.collectionTextColor=document.getElementById("setCollectionTextColor").value||"#ffd700";appConfig.width=+document.getElementById("setAppWidth").value;appConfig.height=+document.getElementById("setAppHeight").value||100;appConfig.fontSize=+document.getElementById("setAppFontSize").value||16;appConfig.userNameFontSize=+document.getElementById("setUserNameFontSize").value||16;document.getElementById("userNameFontSizeVal").innerText=appConfig.userNameFontSize;appConfig.fontWeight=document.getElementById("setAppFontWeight").value;appConfig.pdfFontSize=+document.getElementById("setPdfFontSize").value||14;appConfig.pdfBannerLeft=+document.getElementById("setPdfBannerLeft").value||14;appConfig.pdfBannerRight=+document.getElementById("setPdfBannerRight").value||10;appConfig.pdfTransaction=+document.getElementById("setPdfTransaction").value||11;appConfig.pdfTransactionBold=document.getElementById("setPdfTransactionBold").checked;appConfig.pdfTransactionBox=+document.getElementById("setPdfTransactionBox").value||8;appConfig.pdfTableHeader=+document.getElementById("setPdfTableHeader").value||12;appConfig.pdfTotals=+document.getElementById("setPdfTotals").value||12;document.getElementById("pdfFontSizeVal").innerText=appConfig.pdfFontSize;document.getElementById("pdfBannerLeftVal").innerText=appConfig.pdfBannerLeft;document.getElementById("pdfBannerRightVal").innerText=appConfig.pdfBannerRight;document.getElementById("pdfTransactionVal").innerText=appConfig.pdfTransaction;document.getElementById("pdfTransactionBoxVal").innerText=appConfig.pdfTransactionBox;document.getElementById("pdfTableHeaderVal").innerText=appConfig.pdfTableHeader;document.getElementById("pdfTotalsVal").innerText=appConfig.pdfTotals;appConfig.color=document.getElementById("setThemeColor").value;appConfig.showDash=document.getElementById("switchDash").checked;appConfig.showSearch=document.getElementById("switchSearch").checked;appConfig.showDateFilter=document.getElementById("switchDateFilter").checked;appConfig.showRedHighlight=document.getElementById("switchRedHighlight").checked;appConfig.showBlueHighlight=document.getElementById("switchBlueHighlight").checked;appConfig.showCloud=document.getElementById("switchCloud").checked;appConfig.showFirebase=document.getElementById("switchFirebase").checked;localStorage.setItem("financeConfig",JSON.stringify(appConfig));applyConfigUI();renderUsers();refreshLeaderDashboard();if(typeof renderLeaderManager==="function")renderLeaderManager();updatePdfPreview();}
 function applyConfigUI(){  
  document.getElementById("headerTitleText").innerText=appConfig.title;document.documentElement.style.setProperty("--banner-background",appConfig.bannerBackgroundColor||"#ffd700");document.documentElement.style.setProperty("--banner-name-size",(appConfig.bannerNameSize||24)+"px");document.documentElement.style.setProperty("--banner-name-color",appConfig.bannerNameColor||"#ffe7a0");document.documentElement.style.setProperty("--banner-outline-color",appConfig.bannerOutlineColor||"#80570d");document.documentElement.style.setProperty("--leader-name-size",(appConfig.leaderNameSize||18)+"px");document.documentElement.style.setProperty("--leader-name-color",appConfig.leaderNameColor||"#ffe7a0");document.documentElement.style.setProperty("--profile-name-size",(appConfig.profileNameSize||22)+"px");document.documentElement.style.setProperty("--profile-name-color",appConfig.profileNameColor||"#2196f3");document.documentElement.style.setProperty("--profile-name-height",(appConfig.profileNameHeight||36)+"px");document.documentElement.style.setProperty("--leader-name-height",(appConfig.leaderNameHeight||36)+"px");document.documentElement.style.setProperty("--mobile-text-size",(appConfig.mobileTextSize||18)+"px");document.documentElement.style.setProperty("--mobile-text-color",appConfig.mobileTextColor||"#ffffff");document.documentElement.style.setProperty("--balance-text-size",(appConfig.balanceTextSize||18)+"px");document.documentElement.style.setProperty("--balance-text-color",appConfig.balanceTextColor||"#ffffff");document.documentElement.style.setProperty("--collection-text-size",(appConfig.collectionTextSize||13)+"px");document.documentElement.style.setProperty("--collection-text-color",appConfig.collectionTextColor||"#ffd700");const profileNameEl=document.getElementById("profName");if(profileNameEl){profileNameEl.style.setProperty("font-size",(appConfig.profileNameSize||22)+"px","important");profileNameEl.style.setProperty("color",appConfig.profileNameColor||"#2196f3","important");}document.getElementById("widthVal").innerText=appConfig.width;document.getElementById("heightVal").innerText=appConfig.height;document.getElementById("fontSizeVal").innerText=appConfig.fontSize;document.documentElement.style.setProperty("--app-width",appConfig.width+"px");document.documentElement.style.setProperty("--app-height",appConfig.height+"vh");document.documentElement.style.setProperty("--app-font-size",appConfig.fontSize+"px");document.documentElement.style.setProperty("--app-font-weight",appConfig.fontWeight);document.documentElement.style.setProperty("--user-name-font-size",appConfig.userNameFontSize+"px");document.documentElement.style.setProperty("--theme-color",appConfig.color);document.documentElement.style.setProperty("--theme-gradient",`linear-gradient(145deg,${appConfig.color},#333)`);  
  document.getElementById("dashboardWrapper").style.display=appConfig.showDash?"grid":"none";document.getElementById("searchBoxWrapper").style.display=appConfig.showSearch?"block":"none";document.getElementById("redDashboardBox").style.display=appConfig.showRedHighlight?"block":"none";document.getElementById("tenPercentDashboardBox").style.display=appConfig.showRedHighlight?"block":"none";let v=appConfig.showDateFilter&&appConfig.showBlueHighlight;document.getElementById("dateFilterWrapper").style.display=v?"flex":"none";document.getElementById("dateDashboardWrapper").style.display=v?"grid":"none";document.getElementById("ledLight").style.display=appConfig.showCloud?"flex":"none"  
@@ -1289,8 +1289,45 @@ function refreshLeaderDashboard(){
 let selectedLeaderIds=new Set();
 function toggleLeaderDashboardSelection(id,on){if(on)selectedLeaderIds.add(id);else selectedLeaderIds.delete(id);document.getElementById("leaderManagerSelectedCount").innerText=selectedLeaderIds.size+" selected";refreshLeaderDashboard();renderLeaderManager();}
 function shareSelectedLeadersWhatsApp(){let arr=leaders.filter(l=>selectedLeaderIds.has(l.id));if(!arr.length)arr=leaders;let txt=`${appConfig.title||"Finance Manager"}\nSelected Leaders: ${arr.length}\n\n`+arr.map((l,i)=>`${i+1}. ${l.name} - Balance ₹ ${leaderBalance(l.id).toLocaleString()} - Commission ₹ ${getLeaderCommission(l.id).toLocaleString()}`).join("\n");if(navigator.share){navigator.share({title:"Leader List",text:txt}).catch(()=>{})}else{window.open("https://wa.me/?text="+encodeURIComponent(txt),"_blank")}}
-function generateSelectedLeadersPDF(){let arr=leaders.filter(l=>selectedLeaderIds.has(l.id));if(!arr.length)return alert("Leader-களை Select செய்யவும்.");if(!window.jspdf)return alert("PDF library load ஆகவில்லை.");let {jsPDF}=window.jspdf,doc=new jsPDF({orientation:"portrait",unit:"mm",format:"a4"}),w=doc.internal.pageSize.getWidth(),now=new Date();doc.setFont("helvetica","bold");doc.setFontSize(+appConfig.pdfBannerLeft||14);doc.text(String(appConfig.title||"FINANCE MANAGER"),10,14);doc.setFontSize(+appConfig.pdfBannerRight||10);doc.text(now.toLocaleString(),w-10,14,{align:"right"});let rows=arr.map((l,i)=>[i+1,l.name,leaderUsers(l.id).length,leaderAllDebit(l.id).toLocaleString(),leaderBalance(l.id).toLocaleString(),getLeaderCommission(l.id).toLocaleString()]);doc.autoTable({startY:24,head:[["S.NO","LEADER","USERS","DEBIT","BALANCE","1% COMMISSION"]],body:rows,theme:"grid",styles:{fontSize:+appConfig.pdfTransaction||11,cellPadding:Math.max(.5,(+appConfig.pdfTransactionBox||8)/4),fontStyle:appConfig.pdfTransactionBold===false?"normal":"bold"},headStyles:{fontSize:+appConfig.pdfTableHeader||12}});doc.setFontSize(+appConfig.pdfTotals||12);doc.text("Selected Leaders: "+arr.length,10,(doc.lastAutoTable?.finalY||100)+8);doc.save("Leader_List.pdf");}
-function renderLeaderManager(){ensureLeaderMembership();if(!selectedLeaderIds.size)selectedLeaderIds=new Set(leaders.map(x=>x.id));refreshLeaderDashboard();let list=document.getElementById("leaderManagerList");list.innerHTML="";if(!leaders.length){list.innerHTML='<div style="margin:20px;padding:25px;text-align:center;border:1px dashed #777;border-radius:12px;color:#aaa">No Leaders yet.<br><br>Create your first Leader.</div>';return}if(!selectedLeaderIds.size)selectedLeaderIds=new Set(leaders.map(x=>x.id));document.getElementById("leaderManagerSelectedCount").innerText=selectedLeaderIds.size+" selected";leaders.slice().sort(leaderSortCompare).forEach(l=>{let us=leaderUsers(l.id),red=leaderHasRed(l.id),s=document.getElementById("filterStartDate").value,e=document.getElementById("filterEndDate").value,blue=appConfig.showBlueHighlight&&appConfig.showDateFilter&&leaderDebit(l.id,s,e)>0,card=document.createElement("div");card.className="leader-card"+(appConfig.showRedHighlight&&red?" redbg":blue?" bluebg":"");card.innerHTML=`<span class="lc-crown">👑</span><input class="lc-check" type="checkbox" ${selectedLeaderIds.has(l.id)?"checked":""} onclick="event.stopPropagation();toggleLeaderDashboardSelection('${jsq(l.id)}',this.checked)" aria-label="Select ${esc(l.name)}"><div class="lc-main"><b>${esc(l.name)}</b><small>${us.length} Users</small></div><div class="lc-balance">₹ ${leaderBalance(l.id).toLocaleString()}</div><div class="lc-commission">Comm ₹ ${getLeaderCommission(l.id).toLocaleString()}</div><button class="lc-edit" onclick="event.stopPropagation();openLeaderEdit('${jsq(l.id)}')" aria-label="Edit leader">✏️</button><button class="lc-delete" onclick="event.stopPropagation();deleteLeaderById('${jsq(l.id)}')" aria-label="Delete leader">🗑️</button>`;card.onclick=()=>openLeaderDetail(l.id);list.appendChild(card)})}  
+function generateSelectedLeadersPDF(){
+ let arr=leaders.filter(l=>selectedLeaderIds.has(l.id));
+ if(!arr.length)return alert("Leader-களை Select செய்யவும்.");
+ if(!window.jspdf)return alert("PDF library load ஆகவில்லை.");
+ let {jsPDF}=window.jspdf,doc=new jsPDF({orientation:"portrait",unit:"mm",format:"a4"}),w=doc.internal.pageSize.getWidth(),now=new Date();
+ let debitTotal=arr.reduce((sum,l)=>sum+leaderAllDebit(l.id),0),tenTotal=debitTotal*.10;
+ doc.setFont("helvetica","bold");
+ doc.setFontSize(+appConfig.pdfBannerLeft||14);doc.text(String(appConfig.title||"FINANCE MANAGER"),10,14);
+ doc.setFontSize(+appConfig.pdfBannerRight||10);doc.text(now.toLocaleString(),w-10,14,{align:"right"});
+ doc.setFontSize(+appConfig.pdfTotals||12);
+ doc.text("TOTAL DEBIT: Rs. "+debitTotal.toLocaleString("en-IN"),10,23);
+ doc.text("10% BALANCE: Rs. "+tenTotal.toLocaleString("en-IN"),w-10,23,{align:"right"});
+ let rows=arr.map((l,i)=>{let debit=leaderAllDebit(l.id);return [i+1,l.name,leaderUsers(l.id).length,debit.toLocaleString("en-IN"),leaderBalance(l.id).toLocaleString("en-IN"),(debit*.10).toLocaleString("en-IN")];});
+ doc.autoTable({startY:30,head:[["S.NO","LEADER","USERS","TOTAL DEBIT","BALANCE","10% BALANCE"]],body:rows,theme:"grid",styles:{fontSize:Math.min(+appConfig.pdfTransaction||11,9),cellPadding:Math.max(.5,(+appConfig.pdfTransactionBox||8)/4),fontStyle:appConfig.pdfTransactionBold===false?"normal":"bold",overflow:"linebreak"},headStyles:{fontSize:Math.min(+appConfig.pdfTableHeader||12,9),halign:"center"},columnStyles:{0:{cellWidth:12,halign:"center"},1:{cellWidth:48,halign:"left"},2:{cellWidth:16,halign:"center"},3:{cellWidth:34,halign:"right"},4:{cellWidth:34,halign:"right"},5:{cellWidth:36,halign:"right"}}});
+ doc.setFontSize(+appConfig.pdfTotals||12);doc.text("Selected Leaders: "+arr.length,10,(doc.lastAutoTable?.finalY||100)+8);
+ doc.save("Leader_List.pdf");
+}
+function renderLeaderManager(){
+ ensureLeaderMembership();
+ if(!selectedLeaderIds.size)selectedLeaderIds=new Set(leaders.map(x=>x.id));
+ refreshLeaderDashboard();
+ let list=document.getElementById("leaderManagerList");
+ list.innerHTML="";
+ if(!leaders.length){
+  list.innerHTML='<div style="margin:20px;padding:25px;text-align:center;border:1px dashed #777;border-radius:12px;color:#aaa">No Leaders yet.<br><br>Create your first Leader.</div>';
+  return;
+ }
+ if(!selectedLeaderIds.size)selectedLeaderIds=new Set(leaders.map(x=>x.id));
+ document.getElementById("leaderManagerSelectedCount").innerText=selectedLeaderIds.size+" selected";
+ leaders.slice().sort(leaderSortCompare).forEach(l=>{
+  let us=leaderUsers(l.id),redUsers=us.filter(isRed),redTenPercent=redUsers.reduce((sum,u)=>sum+getLeaderTenPercent(u),0);
+  let red=leaderHasRed(l.id),s=document.getElementById("filterStartDate").value,e=document.getElementById("filterEndDate").value;
+  let blue=appConfig.showBlueHighlight&&appConfig.showDateFilter&&leaderDebit(l.id,s,e)>0,card=document.createElement("div");
+  card.className="leader-card"+(appConfig.showRedHighlight&&red?" redbg":blue?" bluebg":"")+(redUsers.length?" has-red-users":"");
+  card.innerHTML=`<span class="lc-crown">👑</span><input class="lc-check" type="checkbox" ${selectedLeaderIds.has(l.id)?"checked":""} onclick="event.stopPropagation();toggleLeaderDashboardSelection('${jsq(l.id)}',this.checked)" aria-label="Select ${esc(l.name)}"><div class="lc-main"><b>${esc(l.name)}</b><small>${us.length} Users</small>${redUsers.length?`<small class="lc-red-count">Red ${redUsers.length}</small>`:""}</div><div class="lc-balance">₹ ${leaderBalance(l.id).toLocaleString("en-IN")}</div><div class="lc-commission">Comm ₹ ${getLeaderCommission(l.id).toLocaleString("en-IN")}</div>${redUsers.length?`<div class="lc-red-balance">10% ₹ ${redTenPercent.toLocaleString("en-IN")}</div>`:""}<button class="lc-edit" onclick="event.stopPropagation();openLeaderEdit('${jsq(l.id)}')" aria-label="Edit leader">✏️</button><button class="lc-delete" onclick="event.stopPropagation();deleteLeaderById('${jsq(l.id)}')" aria-label="Delete leader">🗑️</button>`;
+  card.onclick=()=>openLeaderDetail(l.id);
+  list.appendChild(card);
+ });
+}
 let selectedLeaderUserIds=new Set();  
 function openLeaderDetail(id){ensureLeaderMembership();currentLeaderIndex=id;selectedLeaderUserIds=new Set(leaderUsers(id).map(u=>u.id));document.getElementById("leaderScreen").classList.add("hidden");document.getElementById("leaderDetailScreen").classList.remove("hidden");renderLeaderDetail()}  
 function backToLeaderManager(){document.getElementById("leaderDetailScreen").classList.add("hidden");document.getElementById("leaderScreen").classList.remove("hidden");renderLeaderManager()}  
@@ -2038,6 +2075,53 @@ button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-
 }
 </style>
 
+
+<style id="leader-red-users-third-row-fix">
+/* Leader dashboard: show a third row only when this leader has RED users. */
+#leaderScreen #leaderManagerList .leader-card.has-red-users{
+  grid-template-rows:38px 32px 28px!important;
+  min-height:106px!important;
+  align-items:stretch!important;
+}
+#leaderScreen #leaderManagerList .leader-card.has-red-users>.lc-main{
+  grid-row:1 / span 3!important;
+  grid-template-rows:38px 32px 28px!important;
+  align-content:stretch!important;
+}
+#leaderScreen #leaderManagerList .leader-card.has-red-users>.lc-main>b{grid-row:1!important;align-self:center!important}
+#leaderScreen #leaderManagerList .leader-card.has-red-users>.lc-main>small:not(.lc-red-count){grid-row:2!important;align-self:center!important}
+#leaderScreen #leaderManagerList .leader-card.has-red-users>.lc-main>.lc-red-count{
+  grid-row:3!important;align-self:center!important;margin:0!important;
+  color:#ff7777!important;font-weight:900!important;font-size:clamp(11px,2.8vw,14px)!important;
+}
+#leaderScreen #leaderManagerList .leader-card.has-red-users>.lc-balance{grid-row:1!important}
+#leaderScreen #leaderManagerList .leader-card.has-red-users>.lc-commission{grid-row:2!important}
+#leaderScreen #leaderManagerList .leader-card.has-red-users>.lc-red-balance{
+  grid-column:3!important;grid-row:3!important;align-self:center!important;
+  width:100%!important;min-width:0!important;text-align:center!important;
+  white-space:nowrap!important;overflow:hidden!important;text-overflow:clip!important;
+  color:#fff!important;font-weight:900!important;font-size:clamp(11px,2.8vw,14px)!important;line-height:1.1!important;
+}
+#leaderScreen #leaderManagerList .leader-card.has-red-users>.lc-crown{grid-row:1!important}
+#leaderScreen #leaderManagerList .leader-card.has-red-users>.lc-check{grid-row:2!important}
+#leaderScreen #leaderManagerList .leader-card.has-red-users>.lc-edit{grid-row:1!important}
+#leaderScreen #leaderManagerList .leader-card.has-red-users>.lc-delete{grid-row:2!important}
+@media(max-width:480px){
+ #leaderScreen #leaderManagerList .leader-card.has-red-users{grid-template-rows:34px 30px 26px!important;min-height:96px!important}
+ #leaderScreen #leaderManagerList .leader-card.has-red-users>.lc-main{grid-template-rows:34px 30px 26px!important}
+ #leaderScreen #leaderManagerList .leader-card.has-red-users>.lc-red-balance{font-size:clamp(10px,2.6vw,12px)!important}
+ #leaderScreen #leaderManagerList .leader-card.has-red-users>.lc-main>.lc-red-count{font-size:clamp(10px,2.6vw,12px)!important}
+}
+</style>
+
+<style id="leader-dashboard-name-alignment-and-size-final">
+#leaderScreen #leaderManagerList .leader-card > .lc-crown{grid-column:1!important;grid-row:1!important;align-self:center!important;margin:0!important;transform:none!important;}
+#leaderScreen #leaderManagerList .leader-card > .lc-main{grid-column:2!important;grid-row:1 / span 2!important;align-self:center!important;justify-self:stretch!important;align-content:center!important;margin:0!important;padding:0!important;min-height:0!important;}
+#leaderScreen #leaderManagerList .leader-card > .lc-main > b{grid-row:1!important;align-self:center!important;margin:0!important;padding:0!important;font-size:min(var(--leader-name-size,18px),18px)!important;line-height:1.12!important;}
+#leaderScreen #leaderManagerList .leader-card.has-red-users > .lc-main{grid-row:1 / span 3!important;align-self:stretch!important;align-content:stretch!important;}
+#leaderScreen #leaderManagerList .leader-card.has-red-users > .lc-main > b{grid-row:1!important;align-self:center!important;}
+@media(max-width:480px){#leaderScreen #leaderManagerList .leader-card > .lc-main > b{font-size:min(var(--leader-name-size,18px),18px)!important;}}
+</style>
 </body>  
 
 <style id="bright-scroll-color-palette-fix">
@@ -2070,6 +2154,42 @@ button:not(#signOutBtn):not(#bannerTransactionDeleteBtn):not(.menu-dot-btn){min-
   color: #172033 !important;
   border: 1px solid color-mix(in srgb, var(--banner-background, #ffd700) 72%, #000) !important;
   font-weight: 800 !important;
+}
+</style>
+<style id="leader-name-control-live-alignment-fix">
+#leaderScreen #leaderManagerList .leader-card > .lc-crown{
+  grid-column:1!important;grid-row:1!important;align-self:center!important;
+  justify-self:center!important;line-height:1!important;margin:0!important;
+}
+#leaderScreen #leaderManagerList .leader-card > .lc-main{
+  grid-column:2!important;grid-row:1 / span 2!important;
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:minmax(34px,1fr) minmax(24px,auto)!important;
+  align-self:stretch!important;align-content:stretch!important;
+  justify-content:start!important;min-width:0!important;margin:0!important;padding:0!important;
+}
+#leaderScreen #leaderManagerList .leader-card > .lc-main > b{
+  grid-column:1!important;grid-row:1!important;align-self:center!important;
+  justify-self:start!important;width:100%!important;min-width:0!important;
+  margin:0!important;padding:0!important;text-align:left!important;
+  font-size:clamp(10px,min(var(--leader-name-size,18px),18px),18px)!important;
+  line-height:1.08!important;white-space:normal!important;overflow-wrap:anywhere!important;
+  transform:none!important;
+}
+#leaderScreen #leaderManagerList .leader-card > .lc-main > small:not(.lc-red-count){
+  grid-column:1!important;grid-row:2!important;align-self:center!important;
+  justify-self:start!important;margin:0!important;
+}
+#leaderScreen #leaderManagerList .leader-card.has-red-users > .lc-main{
+  grid-row:1 / span 3!important;
+  grid-template-rows:38px 32px 28px!important;
+}
+#leaderScreen #leaderManagerList .leader-card.has-red-users > .lc-main > b{grid-row:1!important;align-self:center!important;}
+#leaderScreen #leaderManagerList .leader-card.has-red-users > .lc-main > small:not(.lc-red-count){grid-row:2!important;}
+#leaderScreen #leaderManagerList .leader-card.has-red-users > .lc-main > .lc-red-count{grid-column:1!important;grid-row:3!important;align-self:center!important;}
+@media(max-width:480px){
+ #leaderScreen #leaderManagerList .leader-card > .lc-main{grid-template-rows:minmax(34px,1fr) minmax(24px,auto)!important;}
+ #leaderScreen #leaderManagerList .leader-card.has-red-users > .lc-main{grid-template-rows:34px 30px 26px!important;}
 }
 </style>
 </html>
@@ -2165,4 +2285,43 @@ input,select,textarea,input[type=date],input[type=text],input[type=number]{backg
 <style id="user-transaction-total-balance-white-fix">
 /* User transaction screen: keep Total Balance text white only */
 #userScreen #profBalance { color: #ffffff !important; }
+</style>
+
+
+<style id="leader-name-symbol-row-and-red-ten-percent-fix">
+/* Leader dashboard: align the leader name on the same top row as the crown, independent of the name-height setting. */
+#leaderScreen #leaderManagerList .leader-card > .lc-main{
+  grid-column:2!important; grid-row:1 / span 2!important;
+  display:grid!important; grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:38px 32px!important; align-content:stretch!important;
+  align-self:stretch!important; justify-content:stretch!important;
+  min-width:0!important; width:100%!important; height:auto!important;
+}
+#leaderScreen #leaderManagerList .leader-card > .lc-main > b{
+  grid-row:1!important; align-self:center!important; justify-self:start!important;
+  display:flex!important; align-items:center!important;
+  width:100%!important; min-width:0!important; min-height:0!important; height:auto!important;
+  margin:0!important; padding:0!important; text-align:left!important;
+  line-height:1.12!important; white-space:normal!important;
+  overflow-wrap:anywhere!important; word-break:normal!important;
+}
+#leaderScreen #leaderManagerList .leader-card > .lc-main > small:not(.lc-red-count){
+  grid-row:2!important; align-self:center!important; justify-self:start!important; margin:0!important;
+}
+#leaderScreen #leaderManagerList .leader-card.has-red-users > .lc-main{
+  grid-row:1 / span 3!important; grid-template-rows:38px 32px 28px!important;
+}
+#leaderScreen #leaderManagerList .leader-card.has-red-users > .lc-main > .lc-red-count{
+  grid-row:3!important; align-self:center!important; justify-self:start!important; margin:0!important;
+}
+#leaderScreen #leaderManagerList .leader-card > .lc-crown{grid-column:1!important;grid-row:1!important;align-self:center!important}
+#leaderScreen #leaderManagerList .leader-card > .lc-red-balance{
+  grid-column:3!important;grid-row:3!important;text-align:center!important;
+  font-weight:900!important;white-space:nowrap!important;
+}
+@media(max-width:480px){
+ #leaderScreen #leaderManagerList .leader-card > .lc-main{grid-template-rows:34px 30px!important}
+ #leaderScreen #leaderManagerList .leader-card.has-red-users > .lc-main{grid-template-rows:34px 30px 26px!important}
+ #leaderScreen #leaderManagerList .leader-card > .lc-main > b{font-size:clamp(11px,3.1vw,15px)!important}
+}
 </style>
